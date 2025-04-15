@@ -1,0 +1,32 @@
+name: Build Documentation
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  release:
+    types: [ published ]
+
+# Ensure only one build at a time for any branch, cancelling any in-progress builds
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install and Build
+        run: |
+          bash build/bin/build-docs.sh
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        if: ${{ github.event_name == 'release' || contains(github.event.head_commit.message, '[doc]') }}
+        with:
+          branch: gh-pages
+          folder: site

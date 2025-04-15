@@ -1,0 +1,55 @@
+# mkdocs serve
+
+site_name: Maximo Application Suite
+site_url: https://ibm-mas.github.io/support
+
+repo_name: GitHub
+repo_url: https://github.com/ibm-mas/support
+edit_uri: blob/master/docs/
+
+nav:
+  - "Troubleshooting":
+      - "Test": test.md
+not_in_nav: |
+  index.md
+
+theme:
+  name: carbon
+  prefix: IBM
+  header_nav_items:
+    - title: Ansible
+      url: https://ibm-mas.github.io/ansible-devops/
+    - title: CLI
+      url: https://ibm-mas.github.io/cli/
+    - title: Support
+      active: true
+
+extra_css:
+  - extra.css
+
+markdown_extensions:
+  - toc:
+      permalink: "¤"
+  - admonition
+    # https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+    # Note
+    # Abstract
+    # Info
+    # Tip
+    # Success
+    # Question
+    # Warning
+    # Failure
+    # Danger
+    # Bug
+    # Example
+    # Quote
+
+plugins:
+  - search: {}
+  - glightbox:
+      shadow: true
+      caption_position: bottom
+      auto_caption: true
+      touchNavigation: false
+      background: black
