@@ -24,9 +24,6 @@ theme:
     - title: Support
       active: true
 
-extra_css:
-  - extra.css
-
 markdown_extensions:
   - toc:
       permalink: "¤"
