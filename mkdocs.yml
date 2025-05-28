@@ -1,52 +1,35 @@
-# mkdocs serve
-
-site_name: Maximo Application Suite
-site_url: https://ibm-mas.github.io/support
-
-repo_name: GitHub
-repo_url: https://github.com/ibm-mas/support
-edit_uri: blob/master/docs/
-
-nav:
-  - "Troubleshooting":
-      - "Test": test.md
-not_in_nav: |
-  index.md
+site_name: mas airgap install
 
 theme:
-  name: carbon
-  prefix: IBM
-  header_nav_items:
-    - title: Ansible
-      url: https://ibm-mas.github.io/ansible-devops/
-    - title: CLI
-      url: https://ibm-mas.github.io/cli/
-    - title: Support
-      active: true
+  name: readthedocs
+  language: en
+  highlightjs: true
+  hljs_languages:
+    - yaml
+  prev_next_buttons_location: none
+  feature:
+    - navigation.instant
 
-markdown_extensions:
-  - toc:
-      permalink: "¤"
-  - admonition
-    # https://squidfunk.github.io/mkdocs-material/extensions/admonition/
-    # Note
-    # Abstract
-    # Info
-    # Tip
-    # Success
-    # Question
-    # Warning
-    # Failure
-    # Danger
-    # Bug
-    # Example
-    # Quote
 
-plugins:
-  - search: {}
-  - glightbox:
-      shadow: true
-      caption_position: bottom
-      auto_caption: true
-      touchNavigation: false
-      background: black
+extra_css:
+  - extra.css
+
+
+nav:
+  - "Guides":
+      - "Airgap installation":
+        - "Overview": 00-airgapsteps.md
+        - "Deploy Image Registry":
+          - "Deploy the VM and extend disk": 05-vm_extend_disk.md
+          - "Deploy image registry in VM": 10-airgap_deployregistry_vm.md
+          - "Deploy registry in OCP": 11-airgap_deployregistry_ocp.md
+        - "Mirror images to the registry":
+          - "mirror mas and dependencies": 20-airgap_mirorimages.md
+          - "mirror redhat images": 25-mirror-redhat-images.md
+        - "Configure OpenShift for mirror": 35-airgap_configureocpformirror.md
+        - "Simulate an airgap environment": 40-airgap_simulateairgap.md
+        - "Additional Information":
+          - "Containers": 01-airgap_podmancommands.md
+  - "Troubleshooting":
+    - "Mobile": spatial.md
+
