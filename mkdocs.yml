@@ -18,18 +18,20 @@ extra_css:
 nav:
   - "Guides":
       - "Airgap installation":
-        - "Overview": 00-airgapsteps.md
+        - "Overview": airgap/00-airgapsteps.md
         - "Deploy Image Registry":
-          - "Deploy the VM and extend disk": 05-vm_extend_disk.md
-          - "Deploy image registry in VM": 10-airgap_deployregistry_vm.md
-          - "Deploy registry in OCP": 11-airgap_deployregistry_ocp.md
+          - "Deploy the VM and extend disk": airgap/05-vm_extend_disk.md
+          - "Deploy image registry in VM": airgap/10-airgap_deployregistry_vm.md
+          - "Deploy registry in OCP": airgap/11-airgap_deployregistry_ocp.md
         - "Mirror images to the registry":
-          - "mirror mas and dependencies": 20-airgap_mirorimages.md
-          - "mirror redhat images": 25-mirror-redhat-images.md
-        - "Configure OpenShift for mirror": 35-airgap_configureocpformirror.md
-        - "Simulate an airgap environment": 40-airgap_simulateairgap.md
+          - "mirror mas and dependencies": airgap/20-airgap_mirorimages.md
+          - "mirror redhat images": airgap/25-mirror-redhat-images.md
+        - "Configure OpenShift for mirror": airgap/35-airgap_configureocpformirror.md
+        - "Simulate an airgap environment": airgap/40-airgap_simulateairgap.md
+        - "Installation": airgap/50-airgap_masinstall.md
         - "Additional Information":
-          - "Containers": 01-airgap_podmancommands.md
+          - "Containers": airgap/01-airgap_podmancommands.md
+          - "Issues": airgap/60-airgap_listofissues.md
   - "Troubleshooting":
     - "Mobile": spatial.md
 

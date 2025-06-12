@@ -6,7 +6,7 @@ when deployed, extend disk via EDIT EMBER menu in fyre.ibm.com/stacks
 set the new size of the disk and submit.  
 repeat until you have the size you need.
 
-![Screenshot of a vm resources to edit](assets/images/vm-extend-disk.png)
+![Screenshot of a vm resources to edit](../assets/images/vm-extend-disk.png)
 
 ## Extend disk
 

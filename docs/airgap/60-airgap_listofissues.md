@@ -59,9 +59,7 @@ info: Mirroring completed in 11.1s (77.26MB/s)
 
 
 =========
-mas mirror-redhat-images
 
-had to be executed several time to get to completion
 
 =========
 image pullbackoff error

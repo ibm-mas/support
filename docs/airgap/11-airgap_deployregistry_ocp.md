@@ -3,7 +3,7 @@
 ## Use the mas cli to create the registry
 
 you can use the mas cli ```setup-registry``` to deploy an image registry in your OCP cluster.  
-the advantage is that it is simple to deploy the image registyr, the iconvenient is that if you cluster is discarded, you loose your images and you will have to mirror all the images again when you mak a new airgap install.  
+the advantage is that it is simple to deploy the image registry, the iconvenient is that if you cluster is discarded, you loose your images and you will have to mirror all the images again when you make a new airgap install.  
   
 ```
 [ibmmas/cli:4.1.3]mascli$ mas setup-registry
@@ -81,5 +81,6 @@ use oc to create the route:
 
 
 ## References
-https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/registry  
-https://ibm-mas.github.io/cli/commands/setup-registry/  
+[https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/registry](https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/registry)  
+[https://ibm-mas.github.io/cli/commands/setup-registry/](https://ibm-mas.github.io/cli/commands/setup-registry/)  
+[https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/setup_registry](https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/setup_registry)

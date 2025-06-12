@@ -1,6 +1,8 @@
-# mirror mas and dependencies
+# Mirror MAS and dependencies images
 
 Use the mas cli to mirror the images:  
+### Interactive mode
+
 ```  
 [ibmmas/cli:13.16.0]mascli$ mas mirror-images
 IBM Maximo Application Suite Air Gap Image Mirror (v13.16.0)
@@ -124,6 +126,84 @@ Proceed with these settings [y/N] y
 
 in the interactive command you have to provide the various options, like the catalog version, the subscription, the private registry details, the working folder, the mirror mode and authentication for the registry.
 
+### Non-Interactive Mode
+
+for the non-interactive options you can refer to the help:
+```
+[ibmmas/cli:13.24.0]mascli$ mas mirror-images -h
+IBM Maximo Application Suite Air Gap Image Mirror (v13.24.0)
+Powered by https://github.com/ibm-mas/ansible-devops/
+
+Usage:
+  mas mirror-images [options]
+Where specified each option may also be defined by setting the appropriate environment variable.
+When no options are specified on the command line, interactive-mode will be enabled by default.
+
+Mirror Mode (Required):
+  -m, --mode MIRROR_MODE                         Operation mode (direct, to-filesystem, from-filesystem)
+  -d, --dir MIRROR_WORKING_DIR                   Working directory for the mirror process
+
+Registry Details (Required):
+  -H, --host REGISTRY_PUBLIC_HOST                 Hostname of the target registry
+  -P, --port REGISTRY_PUBLIC_PORT                 Port number for the target registry
+  -u, --username REGISTRY_USERNAME                Username to authenticate to the target registry
+  -p, --password REGISTRY_PASSWORD                Password to authenticate to the target registry
+
+Registry Prefix (Optional):
+  -x, --prefix REGISTRY_PREFIX            Prefix for the mirror image
+
+Source Registry Entitlements (Required based on what content you choose to mirror):
+      --ibm-entitlement IBM_ENTITLEMENT_KEY       IBM Entitlement Key
+      --artifactory-username ARTIFACTORY_USERNAME Artifactory Username
+      --artifactory-token ARTIFACTORY_TOKEN       Artifactory Token
+
+Maximo Operator Catalog Selection (Optional):
+  -c, --catalog MAS_CATALOG_VERSION               Maximo Operator Catalog Version to mirror (e.g. v9-240625-amd64)
+  -C, --channel MAS_CHANNEL                       Maximo Application Suite Channel to mirror (e.g. 9.0.x)
+
+Content Selection (Core Platform):
+      --mirror-catalog                            Mirror the IBM Maximo Operator Catalog
+      --mirror-core                               Mirror images for IBM Maximo Application Suite Core
+
+Content Selection (Applications):
+      --mirror-assist                             Mirror images for IBM Maximo Assist
+      --mirror-iot                                Mirror images for IBM Maximo IoT
+      --mirror-manage                             Mirror images for IBM Maximo Manage
+      --mirror-icd                                Mirror image  for IBM Maximo IT (Separately entitled IBM Maximo Manage extension)
+      --mirror-monitor                            Mirror images for IBM Maximo Monitor
+      --mirror-optimizer                          Mirror images for IBM Maximo Optimizer
+      --mirror-predict                            Mirror images for IBM Maximo Predict
+      --mirror-visualinspection                   Mirror images for IBM Maximo Visual Inspection
+
+Content Selection (Cloud Pak for Data):
+      --mirror-cp4d                               Mirror images for IBM Cloud Pak for Data Platform
+      --mirror-wsl                                Mirror images for IBM Watson Studio Local
+      --mirror-wml                                Mirror images for IBM Watson Machine Learning
+      --mirror-spark                              Mirror images for IBM Analytics Engine (Spark)
+      --mirror-cognos                             Mirror images for IBM Cognos Analytics
+
+Content Selection (Other Dependencies):
+      --mirror-cfs                                Mirror images for IBM Cloud Pak Foundation Services
+      --mirror-sls                                Mirror images for IBM Suite License Service
+      --mirror-tsm                                Mirror images for IBM Truststore Manager
+      --mirror-mongo                              Mirror images for MongoDb Community Edition
+      --mirror-mongo-v5                           Mirror images for MongoDb Community Edition version 5
+      --mirror-mongo-v6                           Mirror images for MongoDb Community Edition version 6
+      --mirror-mongo-v7                           Mirror images for MongoDb Community Edition version 7
+      --mirror-db2                                Mirror images for IBM Db2
+      --mirror-appconnect                         Mirror images for IBM AppConnect
+      --mirror-odf                                Mirror images for ODF
+
+Content Selection (All images included):
+      --mirror-everything                         Mirror all MAS related images (including dependencies)
+
+Other Commands:
+      --no-confirm                                Mirror images without prompting for confirmation
+  -h, --help                                      Show this help message
+```
+
+and to the following example: [https://ibm-mas.github.io/cli/examples/mirror-db2/](https://ibm-mas.github.io/cli/examples/mirror-db2/)
+
 ## Troubleshotting
 if there are error, you can see them in the log file, you get the link at the end of the run.  
   
@@ -148,18 +228,18 @@ for the other playbooks, you can refer to the code for the mirror_images command
   mirror_one_thing $MIRROR_DEPS                 "Selected Dependencies"                 "$LOG_PREFIX-dependencies.log"     mirror_dependencies
 ```
 
-### details of mirrored images
+### Details of mirrored images
 
 in the working directory, you will also find a manifest folder, where you will have the details of the images to be mirrored, based on the mirror type, direct, to-filesystem, from-filesystem
 
-### verify the content of the registry:
+### Verify the content of the registry:
 
 verify content of catalog:  
 curl https://registry.apps.siccing.cp.fyre.ibm.com:443/v2/_catalog -k -u admin  
   
 
 
-### errors
+### Errors
 
 possible errors in the mirror logs:
     - 'error: unable to retrieve source image registry.redhat.io/rhel8/postgresql-12 manifest sha256:fa920188f567e51d75aacd723f0964026e42ac060fed392036e8d4b3c7a8129f: Get "https://registry.redhat.io/v2/rhel8/postgresql-12/manifests/sha256:fa920188f567e51d75aacd723f0964026e42ac060fed392036e8d4b3c7a8129f": unauthorized: Please login to the Red Hat Registry using your Customer Portal credentials. Further instructions can be found here: https://access.redhat.com/articles/3399531'
@@ -189,3 +269,6 @@ skopeo copy docker://quay.io/ibmmas/cli:13.13.0 docker://ml-registry1.fyre.ibm.c
 
 ## References
 
+[https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/mirror_images](https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/mirror_images)  
+Playbooks:  
+[https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/playbooks/mirror_dependencies.yml](https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/playbooks/mirror_dependencies.yml)

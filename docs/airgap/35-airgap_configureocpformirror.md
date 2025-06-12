@@ -2,11 +2,62 @@
 
 ## Steps
 
+### Interactive Mode
 
+```
+[ibmmas/cli:13.24.0]mascli$ mas configure-airgap
+IBM Maximo Application Suite Air Gap OCP Setup (v13.24.0)
+Powered by https://github.com/ibm-mas/ansible-devops/
+
+
+1) Set Target OpenShift Cluster
+Connected to OCP cluster: 
+   https://console-openshift-console.apps.mas-ml.cp.fyre.ibm.com
+Proceed with this cluster? [Y/n] 
+
+
+2) Configure Target Mirror
+Mirror Registry Host > img-registry1.fyre.ibm.com
+Mirror Registry Port > 5000
+Mirror Registry Prefix > 
+Mirror Registry CA File > /images/certs/ca.crt
+/mascli/functions/configure_airgap: line 114: REGISTRY_PRIVATE_URL: command not found
+
+
+3) Configure Authentication
+Mirror Registry Username > admin
+🔐 Mirror Registry Password >  ******                  
+
+
+4) Red Hat Catalog Management
+NEW! From release 7.9 of the MAS CLI it is now possible to mirror a curated version of the Red Hat Operator catalogs containing only the operators that IBM Maximo Application Suite requires using mas mirror-redhat and automatically configure OpenShift Container Platform to use these catalogs:
+
+1. OperatorHub will be re-configured to disable the default online catalog sources
+2. Three offline catalog sources will be created/updated in the openshift-marketplace namespace:
+  - certified-operator-index -> /redhat/certified-operator-index:v4.16
+  - community-operator-index -> /redhat/community-operator-index:v4.16
+  - redhat-operator-index -> /redhat/redhat-operator-index:v4.16
+
+Enable IBM managed Red Hat catalogs? [y/N] y
+
+Review Settings
+
+    Private Registry Connection
+    Host ...................... img-registry1.fyre.ibm.com
+    Port ...................... 5000
+    Prefix .................... 
+    CA File ................... /images/certs/server.crt
+
+    Red Hat Catalog Management
+    Management Mode ........... IBM Managed/Configured
+
+Proceed with these settings [y/N] 
+```
+### Non-Interactive Mode
 ```
 export SETUP_REDHAT_RELEASE=true
 export SETUP_REDHAT_CATALOGS=true
-mas configure-airgap -H ml-registry1.fyre.ibm.com -P 5000 -c /images/certs/server.crt -u admin -p redhat --no-confirm
+mas configure-airgap -H img-registry1.fyre.ibm.com -P 5000 -c /images/certs/ca.crt -u admin -p redhat --no-confirm
 ```
 
 
