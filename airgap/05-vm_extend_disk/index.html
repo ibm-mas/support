@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Deploy the VM and extend disk - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Deploy the VM and extend disk";
+        var mkdocs_page_input_path = "airgap/05-vm_extend_disk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" >Deploy Image Registry</a>
+    <ul class="current">
+                <li class="toctree-l3 current"><a class="reference internal current" href="#">Deploy the VM and extend disk</a>
+    <ul class="current">
+    <li class="toctree-l4"><a class="reference internal" href="#deploy-vm">Deploy VM</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#extend-disk">Extend disk</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+          <li class="breadcrumb-item">Deploy Image Registry</li>
+      <li class="breadcrumb-item active">Deploy the VM and extend disk</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="prepare-vm">prepare VM</h1>
+<h2 id="deploy-vm">Deploy VM</h2>
+<p>deploy a Redhat 8 image on Fyre.<br />
+when deployed, extend disk via EDIT EMBER menu in fyre.ibm.com/stacks<br />
+set the new size of the disk and submit.<br />
+repeat until you have the size you need.</p>
+<p><img alt="Screenshot of a vm resources to edit" src="../../assets/images/vm-extend-disk.png" /></p>
+<h2 id="extend-disk">Extend disk</h2>
+<p>open a shell session as root.</p>
+<p>List block devices:</p>
+<pre><code>lsblk
+NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sr0            11:0    1 1024M  0 rom
+vda           252:0    0  1.2T  0 disk
+</code></pre>
+<p>vda above reflects newly added space,1.2 TB in this case.</p>
+<p>Create a new partition using fdisk, the use the interactive options:</p>
+<pre><code>fdisk /dev/vda
+
+Command (m for help): p
+Disk /dev/vda: 1.2 TiB, 1288490188800 bytes, 2516582400 sectors
+…
+…
+
+Feedback
+Command (m for help): new
+
+&lt;all defaults&gt;
+
+Created a new partition 3 of type ‘Linux’ and of size 950 GiB.
+Command (m for help): t
+Partition number (1-3, default 3):Hex code (type L to list all codes): 8e
+Changed type of partition ‘Linux’ to ‘Linux LVM’.
+Command (m for help): w
+</code></pre>
+<p>The partition table has been altered.<br />
+Syncing disks, you can verify with:</p>
+<pre><code>fdisk -l /dev/vda
+</code></pre>
+<pre><code>sync;reboot
+</code></pre>
+<pre><code>lsblk
+</code></pre>
+<p>list the physical volumes</p>
+<pre><code>pvdisplay
+</code></pre>
+<p>create a new physical volume</p>
+<pre><code>pvcreate /dev/vda3
+</code></pre>
+<p>list the volume groups</p>
+<pre><code>vgdisplay
+</code></pre>
+<p>extend the volme group</p>
+<pre><code>vgextend rhel /dev/vda3
+</code></pre>
+<p>list the logical volumes</p>
+<pre><code>lvdisplay
+</code></pre>
+<p>extend the logical volume</p>
+<pre><code>lvextend -l+100%FREE /dev/rhel/root
+</code></pre>
+<p>expand the XFS filesystem</p>
+<pre><code>xfs_growfs /
+</code></pre>
+<p>verify the file system space usage</p>
+<pre><code>df -h
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../00-airgapsteps/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../10-airgap_deployregistry_vm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

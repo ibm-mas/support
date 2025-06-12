@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Simulate an airgap environment - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Simulate an airgap environment";
+        var mkdocs_page_input_path = "airgap/40-airgap_simulateairgap.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Deploy Image Registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Simulate an airgap environment</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#get-the-registry-certificate">Get the registry certificate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remove-connectivity-to-the-external-registies">Remove connectivity to the external registies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#verify-the-host-file-on-the-host">verify the host file on the host</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#verify-the-machine-config">verify the machine config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#disable-catalog">Disable catalog</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#references">References</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+      <li class="breadcrumb-item active">Simulate an airgap environment</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="simulate-airgap">Simulate airgap</h1>
+<h2 id="get-the-registry-certificate">Get the registry certificate</h2>
+<p>if you deployed the registry in OCP:  </p>
+<pre><code>oc extract secret/airgap-registry-ca -n airgap-registry
+export REGISTRY_PRIVATE_CA_FILE=ca.crt 
+</code></pre>
+<p>if yo udeployed the registry in a VM:  </p>
+<pre><code>export REGISTRY_PRIVATE_CA_FILE=/mnt/home/domain.crt
+export REGISTRY_PRIVATE_CA_FILE=/images/certs/ca.crt
+</code></pre>
+<h2 id="remove-connectivity-to-the-external-registies">Remove connectivity to the external registies</h2>
+<p>to simulate airgap, we remove connectivity to the external registries. To do so, we create a fake entry in the host file of the nodes for the various registries.  </p>
+<pre><code>mascli$ ansible localhost -m include_role -a name=ansible-devops/roles/ocp_simulate_disconnected_network
+</code></pre>
+<p>Alternatively, you can use the playbook ocp_convert_to_disconnected, that will execute the following 3 roles:<br />
+    - ibm.mas_devops.ocp_config
+    - ibm.mas_devops.ocp_idms
+    - ibm.mas_devops.ocp_simulate_disconnected_network</p>
+<pre><code>export REGISTRY_PRIVATE_HOST=mlregistry1.fyre.ibm.com
+export REGISTRY_PRIVATE_PORT=5000
+export REGISTRY_PRIVATE_CA_FILE=/images/certs/domain.crt
+export REGISTRY_USERNAME=admin
+export REGISTRY_PASSWORD=redhat
+
+ansible-playbook ansible-devops/playbooks/ocp_convert_to_disconnected.yml
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="verify-the-host-file-on-the-host">verify the host file on the host</h3>
+<p>when the role is executed, a machine config is created and applied to all the nodes.<br />
+you can check the host file on the node, for example:  </p>
+<pre><code>[root@api.mas-ml-airgap.cp.fyre.ibm.com ~]# ssh core@worker1 'cat /etc/hosts'
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+1.2.3.4     quay.io registry.redhat.io registry.connect.redhat.com gcr.io nvcr.io icr.io cp.icr.io docker-na-public.artifactory.swg-devops.com
+172.30.210.198 image-registry.openshift-image-registry.svc image-registry.openshift-image-registry.svc.cluster.local # openshift-generated-node-resolver
+</code></pre>
+<h3 id="verify-the-machine-config">verify the machine config</h3>
+<p>in the list of machine config, you can look for the last applie config and search the yaml for the hosts file, then you can use base64 to view the data:  </p>
+<pre><code>matthieu:~$ echo &quot;MTI3LjAuMC4xICAgbG9jYWxob3N0IGxvY2FsaG9zdC5sb2NhbGRvbWFpbiBsb2NhbGhvc3Q0IGxvY2FsaG9zdDQubG9jYWxkb21haW40Cjo6MSAgICAgICAgIGxvY2FsaG9zdCBsb2NhbGhvc3QubG9jYWxkb21haW4gbG9jYWxob3N0NiBsb2NhbGhvc3Q2LmxvY2FsZG9tYWluNgoxLjIuMy40ICAgICBxdWF5LmlvIHJlZ2lzdHJ5LnJlZGhhdC5pbyByZWdpc3RyeS5jb25uZWN0LnJlZGhhdC5jb20gZ2NyLmlvIG52Y3IuaW8gaWNyLmlvIGNwLmljci5pbyBkb2NrZXItbmEtcHVibGljLmFydGlmYWN0b3J5LnN3Zy1kZXZvcHMuY29tIGRvY2tlci1uYS1wcm94eS1zdmwuYXJ0aWZhY3Rvcnkuc3dnLWRldm9wcy5jb20gZG9ja2VyLW5hLXByb3h5LXJ0cC5hcnRpZmFjdG9yeS5zd2ctZGV2b3BzLmNvbQoxNzIuMzAuMjMyLjE2IGltYWdlLXJlZ2lzdHJ5Lm9wZW5zaGlmdC1pbWFnZS1yZWdpc3RyeS5zdmMgaW1hZ2UtcmVnaXN0cnkub3BlbnNoaWZ0LWltYWdlLXJlZ2lzdHJ5LnN2Yy5jbHVzdGVyLmxvY2FsICMgb3BlbnNoaWZ0LWdlbmVyYXRlZC1ub2RlLXJlc29sdmVyCg==&quot; | base64 -d
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+1.2.3.4     quay.io registry.redhat.io registry.connect.redhat.com gcr.io nvcr.io icr.io cp.icr.io docker-na-public.artifactory.swg-devops.com docker-na-proxy-svl.artifactory.swg-devops.com docker-na-proxy-rtp.artifactory.swg-devops.com
+172.30.232.16 image-registry.openshift-image-registry.svc image-registry.openshift-image-registry.svc.cluster.local # openshift-generated-node-resolver
+</code></pre>
+<h3 id="disable-catalog">Disable catalog</h3>
+<p>after the nodes are updated with the latest machine config, you may start seeing some pods in crashloopback, maybe you are missing some images in the registry or some configuration is incorrect (IDMS)  </p>
+<p>when ocp_idms role was executed, 3 new catalogs were created:<br />
+https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/roles/ocp_idms/templates/idms/mas-redhat-catalogs.yml.j2  </p>
+<p>those use the private registry  </p>
+<p>catalog sources that were present before may be in transient failure status  </p>
+<p>you need to disable them, otherwise that will cause issue when installing operators  </p>
+<pre><code>oc get catalogsource -A
+NAMESPACE               NAME                       DISPLAY               TYPE   PUBLISHER   AGE
+openshift-marketplace   certified-operator-index   Certified Operators   grpc   Red Hat     38m
+openshift-marketplace   certified-operators        Certified Operators   grpc   Red Hat     133m
+openshift-marketplace   community-operator-index   Community Operators   grpc   Red Hat     38m
+openshift-marketplace   community-operators        Community Operators   grpc   Red Hat     133m
+openshift-marketplace   redhat-marketplace         Red Hat Marketplace   grpc   Red Hat     133m
+openshift-marketplace   redhat-operator-index      Red Hat Operators     grpc   Red Hat     38m
+openshift-marketplace   redhat-operators           Red Hat Operators     grpc   Red Hat     133m
+
+
+oc patch operatorhubs/cluster --type merge --patch '{&quot;spec&quot;:{&quot;sources&quot;:[{&quot;disabled&quot;: true,&quot;name&quot;: &quot;certified-operators&quot;},{&quot;disabled&quot;: true,&quot;name&quot;: &quot;community-operators&quot;},{&quot;disabled&quot;: true,&quot;name&quot;: &quot;redhat-marketplace&quot;},{&quot;disabled&quot;: true,&quot;name&quot;: &quot;redhat-operators&quot;}]}}'
+</code></pre>
+<h2 id="references">References</h2>
+<p>https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/ocp_simulate_disconnected_network<br />
+https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/playbooks/ocp_convert_to_disconnected.yml
+https://access.redhat.com/solutions/5611481  </p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../35-airgap_configureocpformirror/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../50-airgap_masinstall/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

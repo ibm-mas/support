@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Containers - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Containers";
+        var mkdocs_page_input_path = "airgap/01-airgap_podmancommands.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Deploy Image Registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" >Additional Information</a>
+    <ul class="current">
+                <li class="toctree-l3 current"><a class="reference internal current" href="#">Containers</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+          <li class="breadcrumb-item">Additional Information</li>
+      <li class="breadcrumb-item active">Containers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="usefull-podman-commands">usefull podman commands</h1>
+<p>list all containers:  </p>
+<pre><code>podman ps -a 
+40e0838dfc67  quay.io/ibmmas/cli:latest          /bin/sh -c bash       2 weeks ago   Exited (0) 2 weeks ago                            lucid_shtern
+8c2596403ff2  quay.io/ibmmas/cli:latest          /bin/sh -c bash       2 weeks ago   Exited (0) 2 weeks ago                            relaxed_brahmagupta
+b9ecb6fb2d61  quay.io/ibmmas/cli:7.8.0           /bin/sh -c bash       2 weeks ago   Exited (0) 2 weeks ago                            adoring_khayyam
+ee3efa6fa401  quay.io/ibmmas/cli:latest          /bin/sh -c bash       2 weeks ago   Exited (0) 2 weeks ago                            trusting_bouman
+f49ddbb4c603  quay.io/ibmmas/cli:7.8.0           /bin/sh -c bash       2 weeks ago   Exited (129) 13 days ago                          busy_bhabha
+</code></pre>
+<p>delete containers:  </p>
+<pre><code>podman rm 40e0838dfc67 8c2596403ff2 b9ecb6fb2d61 ee3efa6fa401 f49ddbb4c603
+</code></pre>
+<p>list images:  </p>
+<pre><code>podman images
+REPOSITORY                  TAG         IMAGE ID      CREATED       SIZE
+quay.io/ibmmas/cli          7.8.0       72910fc0b9c0  2 weeks ago   2.71 GB
+quay.io/ibmmas/cli          latest      a246db052142  3 months ago  2.6 GB
+docker.io/library/registry  latest      0030ba3d620c  4 months ago  24.6 MB
+</code></pre>
+<p>delete images:  </p>
+<pre><code>podman rmi 72910fc0b9c0
+Untagged: quay.io/ibmmas/cli:7.8.0
+Deleted: 72910fc0b9c031cae7124e89e925589e8d5ceba54c6078c7ae9e7db701399363
+</code></pre>
+<p>start the cli image:  </p>
+<pre><code>podman run -ti -d -v -name mascli /images:/images:z -v ~:/mnt/home:z --pull always quay.io/ibmmas/cli
+</code></pre>
+<p>NOTE: before installing, copy the license file to one of the mounted folders on the host.  </p>
+<p>connect to a running container:  </p>
+<pre><code>podman exec -ti mascli /bin/bash
+</code></pre>
+<p>stop and start container:  </p>
+<pre><code>podman stop mascli
+podman start mascli
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../50-airgap_masinstall/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../60-airgap_listofissues/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

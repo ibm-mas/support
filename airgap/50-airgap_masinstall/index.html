@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Installation - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Installation";
+        var mkdocs_page_input_path = "airgap/50-airgap_masinstall.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Deploy Image Registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Installation</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+      <li class="breadcrumb-item active">Installation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mas-install-in-airgap-environment">mas install in airgap environment</h1>
+<p>mascli$ mas install
+IBM Maximo Application Suite Installer
+Powered by https://github.com/ibm-mas/ansible-devops/ and https://tekton.dev/</p>
+<p>Current Limitations
+1. Support for airgap installation is limited to Core with IoT, Manage, Optimizer at present</p>
+<ol>
+<li>
+<p>Set Target OpenShift Cluster
+Connected to OCP cluster: 
+   https://console-openshift-console.apps.siccing.cp.fyre.ibm.com
+Proceed with this cluster? [Y/n] y</p>
+</li>
+<li>
+<p>Install OpenShift Pipelines Operator
+OpenShift Pipelines Operator is installed and ready</p>
+</li>
+<li>
+<p>Configure Installation
+MAS Instance ID &gt; ag 
+MAS Workspace ID &gt; agws          <br />
+MAS Workspace Display Name &gt; airgap workspace
+MAS Version:
+April 14 2023 Update</p>
+</li>
+<li>8.10.0</li>
+<li>8.9.4
+March 14 2023 Update</li>
+<li>8.9.3
+February 17 2023 Update</li>
+<li>8.9.2
+January 11 2023 Update</li>
+<li>8.9.1
+Select Catalog Source &gt; 1</li>
+</ol>
+<p>3.1. License Terms
+ For information about your license, see https://ibm.biz/MAS810-License  To continue with the installation, you must accept the license terms.
+Do you accept the license terms? [y/N] y</p>
+<ol>
+<li>Configure Operation Mode
+Maximo Application Suite can be installed in a non-production mode for internal development and testing, this setting cannot be changed after installation:</li>
+<li>All applications, add-ons, and solutions have 0 (zero) installation AppPoints in non-production installations.</li>
+<li>These specifications are also visible in the metrics that are shared with IBM® and on the product UI.</li>
+</ol>
+<p>Use non-production mode? [y/N] y</p>
+<ol>
+<li>
+<p>Configure Domain &amp; Certificate Management
+Configure Custom Domain [y/N] n</p>
+</li>
+<li>
+<p>Application Selection
+Install IoT [y/N] n
+Install Manage [y/N] n
+Install Optimizer [y/N] n
+Install Visual Inspection [y/N] </p>
+</li>
+<li>
+<p>Configure Db2
+The installer can setup one or more IBM Db2 instances in your OpenShift cluster for the use of applications that require a JDBC datasource (IoT, Manage, Monitor, &amp; Predict) or you may choose to configure MAS to use an existing database.</p>
+</li>
+</ol>
+<p>No applications have been selected that require a Db2 installation</p>
+<ol>
+<li>Additional Configuration
+Additional resource definitions can be applied to the OpenShift Cluster during the MAS configuration step.
+The primary purpose of this is to apply configuration for Maximo Application Suite itself, but you can use this to deploy ANY additional resource into your cluster.</li>
+</ol>
+<p>Use additional configurations? [y/N] n</p>
+<ol>
+<li>Configure Storage Class Usage
+Maximo Application Suite and it's dependencies require storage classes that support ReadWriteOnce (RWO) and ReadWriteMany (RWX) access modes:</li>
+<li>ReadWriteOnce volumes can be mounted as read-write by multiple pods on a single node.</li>
+<li>ReadWriteMany volumes can be mounted as read-write by multiple pods across many nodes.</li>
+</ol>
+<p>Select the ReadWriteOnce and ReadWriteMany storage classes to use from the list below:
+ - rook-ceph-block
+ - rook-cephfs</p>
+<p>Enter 'none' for the ReadWriteMany storage class if you do not have a suitable class available in the cluster, however this will limit what can be installed</p>
+<p>ReadWriteOnce (RWO) storage class &gt; rook-ceph-block
+ReadWriteMany (RWX) storage class &gt; rook-cephfs</p>
+<ol>
+<li>
+<p>Advanced Settings
+Configure Advanced Settings (optional)? [y/N] n</p>
+</li>
+<li>
+<p>Configure IBM Container Registry
+IBM Entitlement Key &gt;  <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>*</p>
+</li>
+<li>
+<p>Configure Product License
+License ID &gt; 10005ae0addd
+License File &gt; /images/license.dat</p>
+</li>
+<li>
+<p>Configure UDS
+UDS Contact Email &gt; matthieulrx@nl.ibm.com
+UDS Contact First Name &gt; Matthieu
+UDS Contact Last Name &gt; Leroux</p>
+</li>
+<li>
+<p>Prepare Installation
+If you are using using storage classes that utilize 'WaitForFirstConsumer' binding mode choose 'No' at the prompt below</p>
+</li>
+</ol>
+<p>Wait for PVCs to bind? [Y/n] n</p>
+<p>Preparing namespace 'mas-ag-pipelines' ...Override image tag '4.1.3' with digest? [Y/n] y
+Using image digest sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+Namespace 'mas-ag-pipelines' is ready</p>
+<p>Installed Task Definitions
+mas-devops-appconnect                   quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-cert-manager                 quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-cluster-monitoring           quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-common-services              quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-cos                          quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-cp4d                         quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-cp4d-service                 quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-db2                          quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-gencfg-workspace             quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-ibm-catalogs                 quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-kafka                        quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-mongodb                      quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-must-gather                  quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-nvidia-gpu                   quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-sls                          quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-app-config             quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-app-install            quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-app-upgrade            quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-config                 quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-db2-setup-for-manage   quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-dns                    quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-install                quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-uninstall              quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-upgrade                quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-suite-verify                 quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010
+mas-devops-uds                          quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010</p>
+<p>Installed Pipeline Definitions
+NAME            AGE
+mas-db2         1s
+mas-install     1s
+mas-uninstall   1s
+mas-update      1s
+mas-upgrade     1s</p>
+<p>quay.io/ibmmas/cli@sha256:c9c1acc54488c755effa627a0ca9e26db5652ec009c226e6aad421b63d556010 is available from the target OCP cluster</p>
+<ol>
+<li>
+<p>Review Settings</p>
+<p>IBM Maximo Application Suite
+Instance ID ............... ag
+Workspace ID .............. agws
+Workspace Name ............ airgap workspace
+Operation Mode ............ Non-production
+Catalog Source ............ ibm-operator-catalog
+Subscription Channel ...... 8.10.x
+IBM Entitled Registry ..... cp.icr.io/cp
+IBM Open Registry ......... icr.io/cpopen
+Entitlement Username ...... cp
+Entitlement Key ........... eyJhbGci<snip></p>
+<p>IBM Maximo Application Suite Applications
+IoT ...................... Skip Installation
+ - Monitor ............... Skip Installation
+Manage ................... Skip Installation
+ - Predict ............... Skip Installation
+Assist ................... Skip Installation
+MVI ...................... Skip Installation</p>
+<p>IBM Suite License Service
+Catalog Source ............ ibm-operator-catalog
+License ID ................ 10005ae0addd
+License File .............. /workspace/entitlement/license.dat
+IBM Entitled Registry ..... cp.icr.io/cp
+IBM Open Registry ......... icr.io/cpopen
+Entitlement Username ...... cp
+Entitlement Key ........... eyJhbGci<snip></p>
+<p>IBM User Data Services
+Contact Email ............. matthieulrx@nl.ibm.com
+First Name ................ Matthieu
+Last Name ................. Leroux</p>
+<p>Storage Class Configuration
+Storage Class Provider ... custom
+ReadWriteOnce ............ rook-ceph-block
+ReadWriteMany ............ rook-cephfs</p>
+</li>
+</ol>
+<p>Proceed with these settings [y/N] y</p>
+<ol>
+<li>Launch Installation
+Installation started successfully</li>
+</ol>
+<p>View progress:
+  https://console-openshift-console.apps.siccing.cp.fyre.ibm.com/pipelines/ns/mas-ag-pipelines</p>
+<p>troubleshooting</p>
+<p>if the mirror command fails with permission error, make sure the volumes are mounted with :z option
+you may also need to allow access policy 
+You can generate a local policy module to allow this access.
+Allow this access for now by executing:</p>
+<h1 id="ausearch-c-python3-raw-audit2allow-m-my-python3">ausearch -c 'python3' --raw | audit2allow -M my-python3</h1>
+<h1 id="semodule-x-300-i-my-python3pp">semodule -X 300 -i my-python3.pp</h1>
+<p>======</p>
+<p>issue: the pipeline start but fails almost straight away on pre-install-check, no logs are available, the corresponding pod no longer exists.</p>
+<p>rerun the pipeline and go to workload&gt;pods
+you see the pod is created but in imagepullbackoff error,
+get the event before the pod is terminated:</p>
+<p>Failed to pull image "quay.io/ibmmas/cli:13.13.0": (Mirrors also failed: [ml-registry1.fyre.ibm.com:5000/ibmmas/cli:13.13.0: reading manifest 13.13.0 in ml-registry1.fyre.ibm.com:5000/ibmmas/cli: manifest unknown]): quay.io/ibmmas/cli:13.13.0: registry quay.io/ibmmas is blocked in /etc/containers/registries.conf or /root/.config/containers/registries.conf.d</p>
+<p>mas install command should detect that it is an airgap install and use digest instead.</p>
+<p>check the mas.log file in the mas cli container</p>
+<p>2025-03-26 13:37:48,718   DEBUG    &gt;&gt;&gt; BaseApp.createTektonFileWithDigest
+2025-03-26 13:37:48,719   DEBUG    We have already generated /opt/app-root/lib64/python3.9/site-packages/mas/cli/templates/ibm-mas-tekton-with-digest.yaml
+2025-03-26 13:37:48,719   DEBUG    &lt;&lt;&lt; BaseApp.createTektonFileWithDigest</p>
+<p>apply the yaml file:
+oc project mas-test-pipelines
+oc apply -f /opt/app-root/lib64/python3.9/site-packages/mas/cli/templates/ibm-mas-tekton-with-digest.yaml</p>
+<p>rerun the pipeline</p>
+<p>PodPtest-install-250326-1339-f0og95-pre-install-check-pod
+NamespaceNSmas-test-pipelines
+Mar 26, 2025, 2:53 PM
+Generated from kubelet on worker0.ml-ag.cp.fyre.ibm.com
+Failed to pull image "quay.io/ibmmas/cli@sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e": (Mirrors also failed: [ml-registry1.fyre.ibm.com:5000/ibmmas/cli@sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e: reading manifest sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e in ml-registry1.fyre.ibm.com:5000/ibmmas/cli: manifest unknown]): quay.io/ibmmas/cli@sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e: registry quay.io/ibmmas is blocked in /etc/containers/registries.conf or /root/.config/containers/registries.conf.d</p>
+<p>add the image to the registry:
+skopeo copy docker://quay.io/ibmmas/cli@sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e docker://ml-registry1.fyre.ibm.com:5000/ibmmas/cli@sha256:9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e</p>
+<p>gives error about invalid manifest</p>
+<p>instead,
+skopeo copy docker://quay.io/ibmmas/cli13.13.0 docker://ml-registry1.fyre.ibm.com:5000/ibmmas/cli:13.13.0</p>
+<p>then get the digest:
+cat /images/data/docker/registry/v2/repositories/ibmmas/cli/_manifests/tags/13.13.0/current/link
+sha256:8ba9cf2e0f2533530d74f9359ad06c97083a4540093f17c021493bdcf897225d</p>
+<p>replace the reference in /opt/app-root/lib64/python3.9/site-packages/mas/cli/templates/ibm-mas-tekton-with-digest.yaml
+vi /opt/app-root/lib64/python3.9/site-packages/mas/cli/templates/ibm-mas-tekton-with-digest.yaml</p>
+<p>use:
+:%s/9f6c745235d7da2eb56f5b193927789f2b3c433d1fcbbabaeed5e28584ee871e/8ba9cf2e0f2533530d74f9359ad06c97083a4540093f17c021493bdcf897225d</p>
+<p>to replace all occurence.
+then apply the file again
+oc project mas-test-pipelines
+oc apply -f /opt/app-root/lib64/python3.9/site-packages/mas/cli/templates/ibm-mas-tekton-with-digest.yaml</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h2 id="references">References</h2>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../40-airgap_simulateairgap/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../01-airgap_podmancommands/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

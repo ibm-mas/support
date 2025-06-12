@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Configure OpenShift for mirror - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configure OpenShift for mirror";
+        var mkdocs_page_input_path = "airgap/35-airgap_configureocpformirror.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Deploy Image Registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Configure OpenShift for mirror</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#steps">Steps</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#interactive-mode">Interactive Mode</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#non-interactive-mode">Non-Interactive Mode</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#imagedigestmirrorset">ImageDigestMirrorSet</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#certificate">Certificate</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#machineconfig">machineConfig</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#references">References</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+      <li class="breadcrumb-item active">Configure OpenShift for mirror</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configure-ocp-for-mirror">Configure ocp for mirror</h1>
+<h2 id="steps">Steps</h2>
+<h3 id="interactive-mode">Interactive Mode</h3>
+<pre><code>[ibmmas/cli:13.24.0]mascli$ mas configure-airgap
+IBM Maximo Application Suite Air Gap OCP Setup (v13.24.0)
+Powered by https://github.com/ibm-mas/ansible-devops/
+
+
+1) Set Target OpenShift Cluster
+Connected to OCP cluster: 
+   https://console-openshift-console.apps.mas-ml.cp.fyre.ibm.com
+Proceed with this cluster? [Y/n] 
+
+
+2) Configure Target Mirror
+Mirror Registry Host &gt; img-registry1.fyre.ibm.com
+Mirror Registry Port &gt; 5000
+Mirror Registry Prefix &gt; 
+Mirror Registry CA File &gt; /images/certs/ca.crt
+/mascli/functions/configure_airgap: line 114: REGISTRY_PRIVATE_URL: command not found
+
+
+3) Configure Authentication
+Mirror Registry Username &gt; admin
+🔐 Mirror Registry Password &gt;  ******                  
+
+
+4) Red Hat Catalog Management
+NEW! From release 7.9 of the MAS CLI it is now possible to mirror a curated version of the Red Hat Operator catalogs containing only the operators that IBM Maximo Application Suite requires using mas mirror-redhat and automatically configure OpenShift Container Platform to use these catalogs:
+
+1. OperatorHub will be re-configured to disable the default online catalog sources
+2. Three offline catalog sources will be created/updated in the openshift-marketplace namespace:
+  - certified-operator-index -&gt; /redhat/certified-operator-index:v4.16
+  - community-operator-index -&gt; /redhat/community-operator-index:v4.16
+  - redhat-operator-index -&gt; /redhat/redhat-operator-index:v4.16
+
+Enable IBM managed Red Hat catalogs? [y/N] y
+
+Review Settings
+
+    Private Registry Connection
+    Host ...................... img-registry1.fyre.ibm.com
+    Port ...................... 5000
+    Prefix .................... 
+    CA File ................... /images/certs/server.crt
+
+    Red Hat Catalog Management
+    Management Mode ........... IBM Managed/Configured
+
+Proceed with these settings [y/N] 
+</code></pre>
+<h3 id="non-interactive-mode">Non-Interactive Mode</h3>
+<pre><code>export SETUP_REDHAT_RELEASE=true
+export SETUP_REDHAT_CATALOGS=true
+mas configure-airgap -H img-registry1.fyre.ibm.com -P 5000 -c /images/certs/ca.crt -u admin -p redhat --no-confirm
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="imagedigestmirrorset">ImageDigestMirrorSet</h3>
+<p>The above command will execute:<br />
+https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/configure_airgap<br />
+that will call the following ansible role:<br />
+https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/ocp_idms<br />
+as a result, that will create an imageDigestMirrorSet.<br />
+An ImageDigestMirrorSet (IDMS) in OpenShift is a custom resource (CR) used to configure image mirroring based on image digests, allowing you to pull images from a mirrored registry when the image digest matches a configured rule.</p>
+<pre><code>oc get idms
+oc get idms -oyaml
+</code></pre>
+<p>if not there, when pulling an image from the external registry, OCP would not know where to get it and you would have an imagepull error.  </p>
+<p>NOTE: idms and itms were introduced in ocp 4.14.<br />
+before that it was icsp (imagecontentsourcepolicy)</p>
+<pre><code>oc get imagecontentsourcepolicies
+NAME                       AGE
+ibm-mas-and-dependencies   3m28s
+
+oc get imagecontentsourcepolicies -o yaml
+extract from the yaml:
+  spec:
+    repositoryDigestMirrors:
+    - mirrors:
+      - image-registry1.fyre.ibm.com:5000/cpopen
+      source: icr.io/cpopen
+    - mirrors:
+      - image-registry1.fyre.ibm.com:5000/ibm-truststore-mgr
+      source: icr.io/ibm-truststore-mgr
+</code></pre>
+<h3 id="certificate">Certificate</h3>
+<p>when the command is executed, a configmap is created in the openshift-config namespace to contain the image registry CA certificate.
+this secret is referenced in the image.config.openshift.io
+oc get image.config.openshift.io cluster -oyaml</p>
+<p>for more information:
+- https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/roles/ocp_idms/tasks/trust.yml
+- https://access.redhat.com/solutions/6969479</p>
+<p>this is the certificate that was created when the registry was created, if it has expired, you will need to update this configmap</p>
+<h3 id="machineconfig">machineConfig</h3>
+<p>when the idms is created, the config will be applied to each node through a machine config<br />
+if a failure occurs, you may see something like:  </p>
+<pre><code>TASK [ibm.mas_devops.ocp_idms : Wait for node pools to finish updating] ************************************************************************
+FAILED - RETRYING: [localhost]: Wait for node pools to finish updating (30 retries left).
+</code></pre>
+<p>To troubleshoot, you can open the machine config (sort by created descending)<br />
+search in the yaml for:  </p>
+<pre><code>        - contents:
+            compression: ''
+            source: 'data:text/plain;charset=utf-8;base64,dW5xdWFsaWZpZWQtc2VhcmNoLXJlZ2lzdHJpZXMgPSBbInJlZ2lzdHJ5LmFjY2Vzcy5yZWRoYXQuY29tIiwgImRvY2tlci5pbyJdCnNob3J0LW5hbWUtbW9kZSA9ICIiCgpbW3JlZ2lzdHJ5XV0KICBwcmVmaXggPSAiIgogIGxvY2F0aW9uID0gImNwLmljci5pby9jcCIKICBibG9ja2VkID0gdHJ1ZQoKICBbW3JlZ2lzdHJ5Lm1pcnJvcl1dCiAgICBsb2NhdGlvbiA9ICJtbC1yZWdpc3RyeTEuZnlyZS5pYm0uY29tOjUwMDAvY3AiCiAgICBwdWxsLWZyb20tbWlycm9yID0gImRpZ2VzdC1vbmx5IgoKW1tyZWdpc3R[...]
+            m1pcnJvcl1dCiAgICBsb2NhdGlvbiA9ICJtbC1yZWdpc3RyeTEuZnlyZS5pYm0uY29tOjUwMDAvdWJpOCIKICAgIHB1bGwtZnJvbS1taXJyb3IgPSAiZGlnZXN0LW9ubHkiCgpbW3JlZ2lzdHJ5XV0KICBwcmVmaXggPSAiIgogIGxvY2F0aW9uID0gInJlZ2lzdHJ5LnJlZGhhdC5pby91Ymk5IgogIGJsb2NrZWQgPSB0cnVlCgogIFtbcmVnaXN0cnkubWlycm9yXV0KICAgIGxvY2F0aW9uID0gIm1sLXJlZ2lzdHJ5MS5meXJlLmlibS5jb206NTAwMC91Ymk5IgogICAgcHVsbC1mcm9tLW1pcnJvciA9ICJkaWdlc3Qtb25seSIK'
+          mode: 420
+          overwrite: true
+          path: /etc/containers/registries.conf
+</code></pre>
+<p>the string is base 64 encoded, you can decode it to view the content:  </p>
+<pre><code>echo &quot;dW5xdWFsaWZpZWQtc2VhcmNoLXJlZ2lzdHJpZXMgPSBbInJlZ2lzdHJ5LmFjY2Vzcy5yZWRoYXQuY29tIiwgImRvY2tlci5pbyJdCnNob3J0LW5hbWUtbW9kZSA9ICIiCgpbW3JlZ2lzdHJ5XV0KICBwcmVmaXggPSAiIgogIGxvY2F0aW9uID0gImNwLmljci5pby9jcCIKICBibG9ja2VkID0gdHJ1ZQoKICBbW3JlZ2lzdHJ5Lm1pcnJvcl1dCiAgICBsb2NhdGlvbiA9ICJtbC1yZWdpc3RyeTEuZnlyZS5pYm0uY29tOjUwMDAvY3AiCiAgICBwdWxsLWZyb20tbWlycm9yID0gImRpZ2VzdC1vbmx5IgoKW1tyZWdpc3R[...]            m1pcnJvcl1dCiAgICBsb2NhdGlvbiA9ICJtbC1yZWdpc3RyeTEuZnlyZS5pYm0uY29tOjUwMDAvdWJpOCIKICAgIHB1bGwtZnJvbS1taXJyb3IgPSAiZGlnZXN0LW9ubHkiCgpbW3JlZ2lzdHJ5XV0KICBwcmVmaXggPSAiIgogIGxvY2F0aW9uID0gInJlZ2lzdHJ5LnJlZGhhdC5pby91Ymk5IgogIGJsb2NrZWQgPSB0cnVlCgogIFtbcmVnaXN0cnkubWlycm9yXV0KICAgIGxvY2F0aW9uID0gIm1sLXJlZ2lzdHJ5MS5meXJlLmlibS5jb206NTAwMC91Ymk5IgogICAgcHVsbC1mcm9tLW1pcnJvciA9ICJkaWdlc3Qtb25seSIK&quot; | base64 -d
+</code></pre>
+<p>you can check the mahine config pool to see what is machine config was applied:</p>
+<pre><code>oc get mcp
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+master   rendered-master-5c62e30608f8b465e90185efde5f0baa   True      False      False      3              3                   3                     0                      105m
+worker   rendered-worker-56d4a60c79317f246280a1583ee116e3   True      False      False      3              3                   3                     0                      105m
+</code></pre>
+<h2 id="references">References</h2>
+<p>https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/config_apis/imagedigestmirrorset-config-openshift-io-v1<br />
+https://github.com/ibm-mas/ansible-devops/blob/master/ibm/mas_devops/roles/ocp_idms/tasks/trust.yml<br />
+https://access.redhat.com/solutions/6969479<br />
+https://github.com/ibm-mas/cli/blob/master/image/cli/mascli/functions/configure_mirror<br />
+https://github.com/ibm-mas/ansible-devops/tree/master/ibm/mas_devops/roles/ocp_idms  </p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../25-mirror-redhat-images/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../40-airgap_simulateairgap/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

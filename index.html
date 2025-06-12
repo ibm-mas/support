@@ -1,132 +1,158 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Support - Maximo Application Suite</title>
-
-    <!-- Pure CSS (https://pure-css.github.io/) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/theme.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
-    <script src="js/theme.js"></script>
-
-    <!-- Carbon theme zones (white, g10, g90, g100) -->
-    <link rel="stylesheet" href="https://1.www.s81c.com/common/carbon/web-components/tag/latest/themes.css" />
-
-    <!-- The Carbon web-components/framework -->
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/ui-shell.min.js"></script>
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/accordion.min.js"></script>
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/breadcrumb.min.js"></script>
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/select.min.js"></script>
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/tabs.min.js"></script>
-    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v2.15.0/search.min.js"></script>
-
-    <!-- HighlightJS code formatting support -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
-    <script>hljs.highlightAll();</script>
-
-    <!-- Required by MkDocs search -->
-    <script>var base_url = ".";</script>
-
-    <!-- User defined extras -->
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>mas airgap install</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="extra.css" rel="stylesheet" />
     
-    
-
-    
-
-    
-    <script src="search/main.js"></script>
-    
-   <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-    html.glightbox-open { overflow: initial; height: 100%; }
-    .gslide-title { margin-top: 0px; user-select: text; }
-    .gslide-desc { color: #666; user-select: text; }
-    .gslide-image img { background: black; }</style> <script src="assets/javascripts/glightbox.min.js"></script></head>
-
-  <body>
-    <cds-header aria-label="Maximo Application Suite" class="cds-theme-zone-g100">
-      <cds-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></cds-header-menu-button>
-      <cds-header-name href="." prefix="IBM">Maximo Application Suite</cds-header-name>
-      <cds-header-nav menu-bar-label="IBM Maximo Application Suite">
-          <cds-header-nav-item  target="" href="https://ibm-mas.github.io/ansible-devops/">Ansible</cds-header-nav-item>
-          <cds-header-nav-item  target="" href="https://ibm-mas.github.io/cli/">CLI</cds-header-nav-item>
-          <cds-header-nav-item is-active target="" href="">Support</cds-header-nav-item>
-      </cds-header-nav>
-
-      <div class="cds--header__global">
-        <cds-search id="header-search" label-text="Search" cds-search-input="search-event" expandable></cds-search>
-      </div>
       <script>
-        var el = document.getElementById("header-search");
-        el.addEventListener("cds-search-input", function (ev) {
-          console.info(ev.detail.value)
-          document.getElementById("header-search-value").setAttribute("value", ev.detail.value);
-        });
-        el.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Enter') {
-            location.href="./search.html?q=" + document.querySelector("#header-search").shadowRoot.querySelector("#input").value;
-          }
-        });
+        // Current page data
+        var mkdocs_page_name = "Welcome to MAS Support";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
       </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
 
-      
-        <cds-header-nav>
-          <cds-header-nav-item href="https://github.com/ibm-mas/support/blob/master/docs/index.md">Edit on GitHub</cds-header-nav-item>
-        </cds-header-nav>
-      
+<body class="wy-body-for-nav" role="document">
 
-    </cds-header>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
 
-    <cds-side-nav aria-label="Side navigation" class="cds-theme-zone-g90">
-      <cds-side-nav-items>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >Airgap installation</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="airgap/00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Deploy Image Registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/10-airgap_deployregistry_vm/">Deploy image registry in VM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="airgap/35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="airgap/40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="airgap/50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="airgap/60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">mas airgap install</a>
         
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Welcome to MAS Support</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="welcome-to-mas-support">Welcome to MAS Support</h1>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
           
-  <cds-side-nav-menu title="Troubleshooting" >
-    
-      
-  <cds-side-nav-menu-item href="test/" >
-    Test
-  </cds-side-nav-menu-item>
+        </div>
+      </div>
 
-    
-  </cds-side-nav-menu>
+    </section>
 
-        
-      </cds-side-nav-items>
-    </cds-side-nav>
+  </div>
 
-    <div id="breadcrumbs" class="rst-content"><cds-breadcrumb no-trailing-slash>
-  <cds-breadcrumb-item>
-    <cds-breadcrumb-link href=".">Home</cds-breadcrumb-link>
-  </cds-breadcrumb-item>
-
-  <cds-breadcrumb-item aria-current="page">
-    <cds-breadcrumb-link href="#support">Support</cds-breadcrumb-link>
-  </cds-breadcrumb-item>
-
-  <cds-breadcrumb-item>
-    <cds-select id="breadcrumbs-toc" class="cds-theme-zone-g10" inline placeholder="..." oninput="changeAnchor(this.value)">
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-  </cds-select>
-  </cds-breadcrumb-item>
-</cds-breadcrumb>
-    </div>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
 
-    <div id="main-content" class="rst-content">
-      
-      <h1 id="support">Support<a class="headerlink" href="#support" title="Permanent link">¤</a></h1>
-<p>Hello world</p>
-      
-    </div>
-    <!-- <div id="footer" class="rst-content">
-      Built with mkdocs v1.6.1 (2025-04-29 12:46:28.140375+00:00)
-    </div> -->
-  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": false, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-</script></body>
+</body>
 </html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2025-06-12 15:47:11.895337+00:00
+-->

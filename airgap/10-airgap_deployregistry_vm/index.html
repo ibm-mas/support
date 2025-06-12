@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Deploy image registry in VM - mas airgap install</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Deploy image registry in VM";
+        var mkdocs_page_input_path = "airgap/10-airgap_deployregistry_vm.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> mas airgap install
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Airgap installation</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00-airgapsteps/">Overview</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" >Deploy Image Registry</a>
+    <ul class="current">
+                <li class="toctree-l3"><a class="reference internal" href="../05-vm_extend_disk/">Deploy the VM and extend disk</a>
+                </li>
+                <li class="toctree-l3 current"><a class="reference internal current" href="#">Deploy image registry in VM</a>
+    <ul class="current">
+    <li class="toctree-l4"><a class="reference internal" href="#install-podman-and-httpd-tools">Install Podman and httpd-tools</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#create-folders-for-the-registry">Create folders for the registry</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate-credentials-for-accessing-the-registry">Generate credentials for accessing the registry</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate-tls-key-pair">Generate TLS key pair</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#copy-the-certificates">Copy the certificates</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#start-the-registy-pod">Start the registy pod:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../11-airgap_deployregistry_ocp/">Deploy registry in OCP</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Mirror images to the registry</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../20-airgap_mirorimages/">mirror mas and dependencies</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../25-mirror-redhat-images/">mirror redhat images</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../35-airgap_configureocpformirror/">Configure OpenShift for mirror</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../40-airgap_simulateairgap/">Simulate an airgap environment</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../50-airgap_masinstall/">Installation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" >Additional Information</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../01-airgap_podmancommands/">Containers</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../60-airgap_listofissues/">Issues</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Troubleshooting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../spatial/">Mobile</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">mas airgap install</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">Airgap installation</li>
+          <li class="breadcrumb-item">Deploy Image Registry</li>
+      <li class="breadcrumb-item active">Deploy image registry in VM</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="deploy-registry-to-a-vm">Deploy registry to a vm</h1>
+<h2 id="install-podman-and-httpd-tools">Install Podman and httpd-tools</h2>
+<p>Install the podman package to run the registry. The httpd-tools package provides the htpasswd utility for authentication.</p>
+<pre><code>yum install -y podman httpd-tools
+</code></pre>
+<h2 id="create-folders-for-the-registry">Create folders for the registry</h2>
+<p>The registry will be stored in /images/ on the host system and the respective directories are mounted in the container running the registry.</p>
+<pre><code>mkdir -p /images/{auth,certs,data}
+</code></pre>
+<h2 id="generate-credentials-for-accessing-the-registry">Generate credentials for accessing the registry</h2>
+<p>Use the htpasswd utility to generate a file containing the credentials for accessing the registry:</p>
+<pre><code>htpasswd -bBc /images/auth/htpasswd admin redhat
+</code></pre>
+<p>A Bcrypt Htpasswd file named htpasswd will be created in the /images/auth/ directory.</p>
+<h2 id="generate-tls-key-pair">Generate TLS key pair</h2>
+<p>The registry is secured with TLS by using a key and certificate signed by a trusted authority (internal or external) or by a simple self-signed certificate. To use a self-signed certificate:</p>
+<pre><code>cd /images/certs/
+REGISTRY_HOST=img-registry1.fyre.ibm.com
+openssl genrsa -out ca.key 2048
+openssl req -new -x509 -days 365 -key ca.key -subj &quot;/C=NL/ST=NH/L=AMS/O=IBM-SUPPORT/CN=Acme Root CA&quot; -out ca.crt
+openssl req -newkey rsa:2048 -nodes -keyout server.key -subj &quot;/C=NL/ST=NH/L=AMS/O=IBM-SUPPORT/CN=$REGISTRY_HOST&quot; -out server.csr
+openssl x509 -req -extfile &lt;(printf &quot;subjectAltName=DNS:$REGISTRY_HOST&quot;) -days 3650 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
+</code></pre>
+<h2 id="copy-the-certificates">Copy the certificates</h2>
+<pre><code># cp /images/certs/server.crt /etc/pki/ca-trust/source/anchors/
+cp /images/certs/ca.crt /etc/pki/ca-trust/source/anchors/
+update-ca-trust
+trust list | grep -i &quot;$REGISTRY_HOST&quot;
+</code></pre>
+<h2 id="start-the-registy-pod">Start the registy pod:</h2>
+<pre><code>podman run --name myregistry \
+-p 5000:5000 \
+-v /images/data:/var/lib/registry:z \
+-v /images/auth:/auth:z \
+-e &quot;REGISTRY_AUTH=htpasswd&quot; \
+-e &quot;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&quot; \
+-e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+-v /images/certs:/certs:z \
+-e &quot;REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.crt&quot; \
+-e &quot;REGISTRY_HTTP_TLS_KEY=/certs/server.key&quot; \
+-e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true \
+-e REGISTRY_STORAGE_DELETE_ENABLED=true \
+-d \
+docker.io/library/registry:latest
+</code></pre>
+<p>Note: If a firewall is running on the hosts, the exposed port (5000) will need to be permitted. To open the port:  </p>
+<pre><code>firewall-cmd --add-port=5000/tcp --zone=internal --permanent
+firewall-cmd --add-port=5000/tcp --zone=public --permanent
+firewall-cmd --reload
+</code></pre>
+<p>verify you can access the registry:</p>
+<pre><code>curl https://admin:redhat@$REGISTRY_HOST:5000/v2/_catalog
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>1- The certificate can be verified using:  </p>
+<pre><code>$ openssl s_client -connect &lt;servername&gt;:5000 -servername &lt;servername&gt;
+</code></pre>
+<p>Be sure to trust the certificate from earlier or use curl's -k switch to ignore certificate verification.</p>
+<p>2- Check that the registry pod is running:  </p>
+<pre><code>podman ps
+CONTAINER ID  IMAGE                              COMMAND               CREATED       STATUS      PORTS                   NAMES
+cf0c6c8397d7  docker.io/library/registry:latest  /etc/docker/regis...  3 months ago  Up 2 weeks  0.0.0.0:5000-&gt;5000/tcp  myregistry
+</code></pre>
+<p>3- When running the podman pull command you may get:  </p>
+<pre><code>Trying to pull docker.io/library/registry:latest...  
+WARN[0038] Failed, retrying in 1s ... (1/3). Error: copying system image from manifest list: determining manifest MIME type for docker://registry:latest: reading manifest sha256:46faa9a1ae6813194b53921a370f2f4f8c5e1aae228a89bceafef5847a6a3278 in docker.io/library/registry: toomanyrequests: You have reached your unauthenticated pull rate limit. https://www.docker.com/increase-rate-limit
+</code></pre>
+<p>if that is the case, login to docker.io:  </p>
+<pre><code>podman login docker.io
+</code></pre>
+<h3 id="references">References:</h3>
+<p><a href="https://www.redhat.com/sysadmin/simple-container-registry">https://www.redhat.com/sysadmin/simple-container-registry</a><br />
+<a href="https://docs.docker.com/docker-hub/usage/">https://docs.docker.com/docker-hub/usage/</a>  </p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../05-vm_extend_disk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../11-airgap_deployregistry_ocp/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
